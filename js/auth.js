@@ -114,7 +114,9 @@ window.Auth = {
 
   // Handle Logout
   logout: function () {
-    if (this.currentUser) {
+    if (window.CT && typeof window.CT.logoutUser === 'function') {
+      CT.logoutUser(this.currentUser);
+    } else if (this.currentUser) {
       CT.trackEvent('User Logged Out', {
         'User Email': this.currentUser.Email,
         'Identity': this.currentUser.Identity

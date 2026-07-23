@@ -81,6 +81,23 @@ window.CT = {
     this.logToHistory('login', 'User Logged In', userData);
   },
 
+  // Logout User
+  logoutUser: function (currentUser) {
+    console.log('[CleverTap Logout Pushed]');
+    if (typeof clevertap.logout === 'function') {
+      clevertap.logout();
+    }
+
+    var details = currentUser || {};
+    this.trackEvent('User Logged Out', {
+      'User Email': details.Email || '',
+      'Identity': details.Identity || ''
+    });
+
+    this.showToast('USER LOGGED OUT', details.Name || details.Identity || 'User Session Terminated', details);
+    this.logToHistory('logout', 'User Logged Out', details);
+  },
+
   // Track E-Commerce Charged Event
   trackCharged: function (chargeDetails, items) {
     console.log('[CleverTap Charged Pushed]:', chargeDetails, items);
