@@ -67,12 +67,19 @@ window.Auth = {
   handleLoginSubmit: function (e) {
     e.preventDefault();
 
-    var name = document.getElementById('input-name').value.trim() || 'Alex Mercer';
-    var email = document.getElementById('input-email').value.trim() || 'alex.mercer@example.com';
-    var phone = document.getElementById('input-phone').value.trim() || '+14155552671';
-    var identity = document.getElementById('input-identity').value.trim() || 'CT_USER_' + Math.floor(1000 + Math.random() * 9000);
-    var genre = document.getElementById('input-genre').value || 'Sci-Fi';
-    var plan = document.getElementById('input-plan').value || 'Premium 4K';
+    var nameEl = document.getElementById('input-name');
+    var emailEl = document.getElementById('input-email');
+    var phoneEl = document.getElementById('input-phone');
+    var identityEl = document.getElementById('input-identity');
+    var genreEl = document.getElementById('input-genre');
+    var planEl = document.getElementById('input-plan');
+
+    var name = (nameEl && nameEl.value) ? nameEl.value.trim() : 'Alex Mercer';
+    var email = (emailEl && emailEl.value) ? emailEl.value.trim() : 'alex.mercer@example.com';
+    var phone = (phoneEl && phoneEl.value) ? phoneEl.value.trim() : '+14155552671';
+    var identity = (identityEl && identityEl.value) ? identityEl.value.trim() : ('CT_USER_' + Math.floor(1000 + Math.random() * 9000));
+    var genre = (genreEl && genreEl.value) ? genreEl.value : 'Sci-Fi';
+    var plan = (planEl && planEl.value) ? planEl.value : 'Premium 4K';
 
     var userData = {
       "Name": name,

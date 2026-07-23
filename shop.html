@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineStream OTT - Action Buttons & CleverTap Shop</title>
+  <meta name="description" content="Test CleverTap Page Visit, Add to Cart, Charged Events, and User Login Profile Push actions.">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- NAVIGATION HEADER -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-film"></i>
+        <span>CineStream</span>
+        <span class="badge-ct">CleverTap</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="browse.html"><i class="fa-solid fa-compass"></i> Browse</a></li>
+        <li><a href="watch.html"><i class="fa-solid fa-circle-play"></i> Watch</a></li>
+        <li><a href="subscribe.html"><i class="fa-solid fa-crown"></i> Premium Tiers</a></li>
+        <li><a href="shop.html" class="active"><i class="fa-solid fa-cart-shopping"></i> Action Buttons & Shop</a></li>
+        <li><a href="clevertap-push.html"><i class="fa-solid fa-terminal"></i> CT Push Console</a></li>
+      </ul>
+    </div>
+    
+    <div class="nav-right">
+      <div class="ct-status-pill" title="CleverTap Web SDK Active">
+        <span class="ct-status-dot"></span>
+        <span>ID: 867-88W-K87Z</span>
+      </div>
+      <div id="nav-auth-container">
+        <!-- Auth button populated dynamically by auth.js -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+    
+    <!-- PAGE HEADER HERO -->
+    <header class="page-header" style="margin-bottom: 2rem; background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+      <div>
+        <span class="badge-ct" style="margin-bottom: 0.5rem; display: inline-block;">
+          <i class="fa-solid fa-microchip"></i> CleverTap Web SDK Integration
+        </span>
+        <h1 style="font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">
+          <i class="fa-solid fa-bolt" style="color: var(--accent-gold); margin-right: 8px;"></i>
+          Action Buttons & Event Studio
+        </h1>
+        <p style="color: var(--text-muted); font-size: 0.95rem; max-width: 650px;">
+          Trigger real-time CleverTap analytics events including <strong>Page Visits</strong>, <strong>Add to Cart</strong>, <strong>E-Commerce Purchases</strong>, and <strong>User Login Profile Pushes</strong> with instant SDK inspection.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <div style="background: rgba(9, 11, 16, 0.7); border: 1px solid var(--border-glass); padding: 0.8rem 1.2rem; border-radius: var(--radius-md); text-align: center;">
+          <span style="font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; display: block;">Items in Cart</span>
+          <span id="cart-badge" style="font-size: 1.4rem; font-weight: 800; color: var(--primary);">0</span>
+        </div>
+        <a href="#login-section" class="btn btn-primary">
+          <i class="fa-solid fa-user-plus"></i> Go to User Login Form
+        </a>
+      </div>
+    </header>
+
+    <!-- SECTION 1: PAGE VISIT TRACKING BUTTONS -->
+    <section style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.8rem; margin-bottom: 2.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-size: 1.25rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-eye" style="color: var(--accent-cyan);"></i>
+            1. Page Visit Event Action Buttons
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">
+            Page visit is automatically tracked on load. Click below to simulate visiting sub-sections or categories.
+          </p>
+        </div>
+        <span class="badge-quality" style="background: rgba(6, 182, 212, 0.15); border-color: rgba(6, 182, 212, 0.4); color: var(--accent-cyan);">
+          <i class="fa-solid fa-circle-check"></i> Auto-Pushed on Page Load
+        </span>
+      </div>
+
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <button class="btn btn-glass" id="btn-visit-shop">
+          <i class="fa-solid fa-compass"></i> Visit Shop Main Catalog
+        </button>
+        <button class="btn btn-glass" id="btn-visit-deals">
+          <i class="fa-solid fa-tags"></i> Visit Flash Deals Section
+        </button>
+        <button class="btn btn-glass" id="btn-visit-tech">
+          <i class="fa-solid fa-vr-cardboard"></i> Visit VR Tech Gear Category
+        </button>
+      </div>
+    </section>
+
+    <!-- TWO COLUMN LAYOUT: SHOPPING CATALOG & CART DRAWER -->
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; margin-bottom: 3rem;" class="shop-grid-container">
+      
+      <!-- LEFT COLUMN: PRODUCT CATALOG & ADD TO CART BUTTONS -->
+      <section>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem;">
+          <div>
+            <h2 style="font-size: 1.25rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-bag-shopping" style="color: var(--accent-purple);"></i>
+              2. Add to Cart & E-Commerce Action Buttons
+            </h2>
+            <p style="color: var(--text-muted); font-size: 0.85rem;">
+              Clicking <strong>Add to Cart</strong> pushes <code>Added to Cart</code> event with price, category, and product payload to CleverTap.
+            </p>
+          </div>
+        </div>
+
+        <div class="products-grid" id="products-grid">
+          <!-- Populated dynamically by js/shop.js -->
+        </div>
+      </section>
+
+      <!-- RIGHT COLUMN: SHOPPING CART & CHECKOUT -->
+      <aside>
+        <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.5rem; position: sticky; top: 100px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border-glass);">
+            <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem;">
+              <i class="fa-solid fa-cart-shopping" style="color: var(--primary);"></i>
+              Your Shopping Cart
+            </h3>
+            <button class="btn btn-sm btn-glass" id="btn-cart-clear" title="Clear Cart" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3);">
+              <i class="fa-solid fa-trash-can"></i> Clear
+            </button>
+          </div>
+
+          <!-- CART ITEMS LIST CONTAINER -->
+          <div id="cart-items-container" style="min-height: 180px; max-height: 320px; overflow-y: auto; margin-bottom: 1.2rem; display: flex; flex-direction: column; gap: 0.8rem;">
+            <!-- Populated dynamically by js/shop.js -->
+          </div>
+
+          <!-- CART TOTAL SUMMARY -->
+          <div style="background: rgba(9, 11, 16, 0.8); border: 1px solid var(--border-glass); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <span style="color: var(--text-muted); font-size: 0.9rem;">Total Amount:</span>
+              <span id="cart-total-price" style="font-size: 1.3rem; font-weight: 800; color: #fff;">$0.00</span>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-dim);">
+              <i class="fa-solid fa-info-circle"></i> Triggers <code>Charged</code> event with complete item arrays.
+            </div>
+          </div>
+
+          <!-- CHECKOUT BUTTON -->
+          <button class="btn btn-primary" id="btn-cart-checkout" style="width: 100%; justify-content: center; padding: 0.9rem;">
+            <i class="fa-solid fa-credit-card"></i> Complete Purchase (Push Charged)
+          </button>
+        </div>
+      </aside>
+
+    </div>
+
+    <!-- SECTION 3: USER DETAILS & LOGIN FORM ("LOGIN BUTTON WHICH TAKES DETAILS & PUSHES TO CLEVERTAP") -->
+    <section id="login-section" style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 2.2rem; margin-bottom: 3rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; border-bottom: 1px solid var(--border-glass); padding-bottom: 1rem;">
+        <div>
+          <span class="badge-ct" style="background: rgba(139, 92, 246, 0.2); color: #a78bfa; border-color: rgba(139, 92, 246, 0.4); margin-bottom: 0.4rem; display: inline-block;">
+            <i class="fa-solid fa-user-gear"></i> CleverTap User Profile & Identity Sync
+          </span>
+          <h2 style="font-size: 1.5rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 0.6rem;">
+            <i class="fa-solid fa-right-to-bracket" style="color: var(--primary);"></i>
+            User Login & Identity Push Form
+          </h2>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Fill in user details and click <strong>Login & Push to CleverTap</strong> to invoke <code>clevertap.onUserLogin.push({ Site: userData })</code> and sync profile attributes.
+          </p>
+        </div>
+
+        <button class="btn btn-glass" id="btn-fill-sample-user">
+          <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-gold);"></i> Auto-Fill Sample User
+        </button>
+      </div>
+
+      <form id="shop-user-login-form">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+          
+          <!-- Identity / User ID -->
+          <div class="form-group">
+            <label class="form-label" for="form-user-identity"><i class="fa-solid fa-fingerprint"></i> Identity / User ID</label>
+            <input type="text" id="form-user-identity" class="form-input" placeholder="e.g. CT_USER_8821" required value="CT_USER_9842" />
+            <span style="font-size: 0.72rem; color: var(--text-dim); margin-top: 4px; display: block;">Unique identifier used by CleverTap to unify profile data.</span>
+          </div>
+
+          <!-- Full Name -->
+          <div class="form-group">
+            <label class="form-label" for="form-user-name"><i class="fa-solid fa-user"></i> Full Name</label>
+            <input type="text" id="form-user-name" class="form-input" placeholder="e.g. Samantha Vance" required value="Samantha Vance" />
+          </div>
+
+          <!-- Email Address -->
+          <div class="form-group">
+            <label class="form-label" for="form-user-email"><i class="fa-solid fa-envelope"></i> Email Address</label>
+            <input type="email" id="form-user-email" class="form-input" placeholder="e.g. samantha@example.com" required value="samantha.vance@example.com" />
+          </div>
+
+          <!-- Phone Number -->
+          <div class="form-group">
+            <label class="form-label" for="form-user-phone"><i class="fa-solid fa-phone"></i> Phone Number</label>
+            <input type="tel" id="form-user-phone" class="form-input" placeholder="e.g. +14155552671" value="+14155552671" />
+          </div>
+
+          <!-- Gender -->
+          <div class="form-group">
+            <label class="form-label" for="form-user-gender"><i class="fa-solid fa-venus-mars"></i> Gender</label>
+            <select id="form-user-gender" class="form-select">
+              <option value="F" selected>Female (F)</option>
+              <option value="M">Male (M)</option>
+              <option value="O">Other (O)</option>
+            </select>
+          </div>
+
+          <!-- Subscription Tier -->
+          <div class="form-group">
+            <label class="form-label" for="form-user-tier"><i class="fa-solid fa-crown"></i> Customer / Subscription Tier</label>
+            <select id="form-user-tier" class="form-select">
+              <option value="VIP Platinum" selected>VIP Platinum Pass</option>
+              <option value="Premium 4K">Premium 4K Ultra</option>
+              <option value="Standard HD">Standard HD</option>
+              <option value="Free Tier">Free Tier Streamer</option>
+            </select>
+          </div>
+
+          <!-- Preferred Genre -->
+          <div class="form-group">
+            <label class="form-label" for="form-user-genre"><i class="fa-solid fa-heart"></i> Favorite Category / Genre</label>
+            <select id="form-user-genre" class="form-select">
+              <option value="Sci-Fi" selected>Sci-Fi & Cyberpunk</option>
+              <option value="Action">Action Blockbusters</option>
+              <option value="Thriller">Psychological Thriller</option>
+              <option value="VR Gaming">VR Gaming & Gear</option>
+            </select>
+          </div>
+
+          <!-- Consents & Preferences -->
+          <div class="form-group" style="display: flex; flex-direction: column; justify-content: center; gap: 0.6rem; background: rgba(9, 11, 16, 0.5); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
+            <label style="font-weight: 700; font-size: 0.85rem; color: #fff;"><i class="fa-solid fa-bell"></i> Push & Communication Consents</label>
+            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; font-size: 0.85rem; color: var(--text-muted);">
+              <input type="checkbox" id="form-msg-push" checked style="accent-color: var(--primary);" /> Enable Web Push Notifications (MSG-push)
+            </label>
+            <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; font-size: 0.85rem; color: var(--text-muted);">
+              <input type="checkbox" id="form-msg-sms" checked style="accent-color: var(--primary);" /> Enable SMS Marketing Alerts (MSG-sms)
+            </label>
+          </div>
+
+        </div>
+
+        <!-- FORM ACTION BUTTONS -->
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <button type="submit" class="btn btn-primary" style="padding: 0.9rem 2rem; font-size: 1rem;">
+            <i class="fa-solid fa-right-to-bracket"></i> Login & Push Details to CleverTap (onUserLogin)
+          </button>
+          
+          <button type="button" class="btn btn-glass" id="btn-push-profile-only" style="padding: 0.9rem 1.5rem;">
+            <i class="fa-solid fa-user-pen"></i> Update Profile Attributes Only (profile.push)
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- LIVE EVENT & PAYLOAD AUDIT HUD PANEL -->
+    <section style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.8rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h3 style="font-size: 1.2rem; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-code" style="color: var(--accent-green);"></i>
+            CleverTap Real-Time Activity Log
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.85rem;">
+            Events and user logins performed on this page are captured and logged below in real-time.
+          </p>
+        </div>
+        <a href="clevertap-push.html" class="btn btn-sm btn-outline">
+          <i class="fa-solid fa-terminal"></i> Open Full Push Console
+        </a>
+      </div>
+
+      <div id="ct-console-log" style="background: rgba(9, 11, 16, 0.9); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 1.2rem; min-height: 180px; max-height: 350px; overflow-y: auto; font-family: var(--font-code); font-size: 0.8rem; color: #93c5fd;">
+        <div style="color: var(--text-dim); text-align: center; padding: 2rem;">
+          <i class="fa-solid fa-terminal" style="font-size: 1.8rem; margin-bottom: 0.5rem; display: block;"></i>
+          Activity stream initialized. Perform any action above (Page Visit, Add to Cart, Login) to see live payloads.
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>CineStream OTT Analytics Suite &copy; 2026. Powered by <a href="https://clevertap.com" target="_blank" rel="noopener">CleverTap Web SDK</a>.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="js/clevertap-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/shop.js"></script>
+</body>
+</html>

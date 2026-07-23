@@ -22,9 +22,10 @@ clevertap.account.push({
   "token": "0bb-a6b"
 });
 
-// Set privacy settings
+// Set privacy settings & verbose logging
 clevertap.privacy.push({ optOut: false });
 clevertap.privacy.push({ useIP: true });
+clevertap.loglevel = 3; // Enable verbose CleverTap debug log output in DevTools Console
 
 // Load CleverTap SDK script asynchronously (Always use HTTPS)
 (function () {
