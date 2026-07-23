@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineStream OTT - Premium Subscription & Checkout | CleverTap Web SDK</title>
+  <meta name="description" content="Upgrade your streaming experience and push CleverTap Charged e-commerce events.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- NAVIGATION HEADER -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-film"></i>
+        <span>CineStream</span>
+        <span class="badge-ct">CleverTap</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="browse.html"><i class="fa-solid fa-compass"></i> Browse</a></li>
+        <li><a href="watch.html"><i class="fa-solid fa-circle-play"></i> Watch</a></li>
+        <li><a href="subscribe.html" class="active"><i class="fa-solid fa-crown"></i> Premium Tiers</a></li>
+        <li><a href="clevertap-push.html"><i class="fa-solid fa-terminal"></i> CT Push Console</a></li>
+      </ul>
+    </div>
+    
+    <div class="nav-right">
+      <div class="ct-status-pill">
+        <span class="ct-status-dot"></span>
+        <span>ID: 867-88W-K87Z</span>
+      </div>
+      <div id="nav-auth-container"></div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+    
+    <!-- PAGE TITLE -->
+    <div style="text-align: center; margin-bottom: 3rem;">
+      <span class="hero-badge"><i class="fa-solid fa-gem"></i> Unlimited Unlimited Entertainment</span>
+      <h1 style="font-size: 2.5rem; font-weight: 800; color: #fff; margin-top: 0.5rem; margin-bottom: 0.8rem;">
+        Choose Your CineStream Membership
+      </h1>
+      <p style="color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto;">
+        Select a streaming plan. Subscription checkouts trigger CleverTap's official <code>Charged</code> event payload!
+      </p>
+    </div>
+
+    <!-- PRICING TIERS -->
+    <div class="pricing-grid">
+      
+      <!-- PLAN 1: BASIC -->
+      <div class="plan-card">
+        <div class="plan-name">Basic HD</div>
+        <div class="plan-price">$9.99 <span class="period">/ month</span></div>
+        <ul class="plan-features">
+          <li><i class="fa-solid fa-check"></i> 720p & 1080p HD Quality</li>
+          <li><i class="fa-solid fa-check"></i> Watch on 1 screen simultaneously</li>
+          <li><i class="fa-solid fa-check"></i> Ad-supported streaming</li>
+          <li><i class="fa-solid fa-check"></i> Cancel anytime</li>
+        </ul>
+        <button class="btn btn-outline btn-select-plan" data-plan="Basic HD" data-price="9.99">
+          Select Basic HD
+        </button>
+      </div>
+
+      <!-- PLAN 2: STANDARD 4K (POPULAR) -->
+      <div class="plan-card popular">
+        <span class="popular-badge"><i class="fa-solid fa-star"></i> Most Popular</span>
+        <div class="plan-name">Standard 4K</div>
+        <div class="plan-price">$15.99 <span class="period">/ month</span></div>
+        <ul class="plan-features">
+          <li><i class="fa-solid fa-check"></i> 4K Ultra HD + HDR10</li>
+          <li><i class="fa-solid fa-check"></i> Watch on 2 screens simultaneously</li>
+          <li><i class="fa-solid fa-check"></i> 100% Ad-Free experience</li>
+          <li><i class="fa-solid fa-check"></i> Download on 2 offline devices</li>
+        </ul>
+        <button class="btn btn-primary btn-select-plan" data-plan="Standard 4K" data-price="15.99">
+          Select Standard 4K
+        </button>
+      </div>
+
+      <!-- PLAN 3: PREMIUM ULTRA -->
+      <div class="plan-card">
+        <div class="plan-name">Premium Ultra</div>
+        <div class="plan-price">$22.99 <span class="period">/ month</span></div>
+        <ul class="plan-features">
+          <li><i class="fa-solid fa-check"></i> 4K HDR + Dolby Vision & Atmos</li>
+          <li><i class="fa-solid fa-check"></i> Watch on 4 screens simultaneously</li>
+          <li><i class="fa-solid fa-check"></i> Ad-Free + VIP Premiere Access</li>
+          <li><i class="fa-solid fa-check"></i> Download on 6 offline devices</li>
+        </ul>
+        <button class="btn btn-purple btn-select-plan" data-plan="Premium Ultra" data-price="22.99">
+          Select Premium Ultra
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- CHECKOUT SIMULATION MODAL -->
+  <div class="modal-backdrop" id="checkout-modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="App.closeCheckoutModal()"><i class="fa-solid fa-xmark"></i></button>
+      
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <div style="width: 50px; height: 50px; background: rgba(16, 185, 129, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--accent-green); font-size: 1.4rem;">
+          <i class="fa-solid fa-credit-card"></i>
+        </div>
+        <h2 style="font-size: 1.4rem; font-weight: 700; color: #fff;">Complete Subscription</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Triggers CleverTap E-Commerce <code>Charged</code> event</p>
+      </div>
+
+      <div style="background: rgba(9, 11, 16, 0.8); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <span style="font-size: 0.8rem; color: var(--text-dim);">Selected Plan</span>
+          <div style="font-size: 1.1rem; font-weight: 700; color: #fff;" id="checkout-plan-name">Standard 4K</div>
+        </div>
+        <div style="text-align: right;">
+          <span style="font-size: 0.8rem; color: var(--text-dim);">Monthly Billed</span>
+          <div style="font-size: 1.3rem; font-weight: 800; color: var(--accent-green);">$<span id="checkout-plan-price">15.99</span></div>
+        </div>
+      </div>
+
+      <form id="checkout-form">
+        <div class="form-group">
+          <label>Cardholder Name</label>
+          <input type="text" class="form-control" value="Sarah Jenkins" required>
+        </div>
+        <div class="form-group">
+          <label>Card Number (Simulation)</label>
+          <input type="text" class="form-control" value="4532 •••• •••• 8821" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>Expiry</label>
+            <input type="text" class="form-control" value="12/28" required>
+          </div>
+          <div class="form-group">
+            <label>CVV</label>
+            <input type="password" class="form-control" value="882" required>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+          <i class="fa-solid fa-lock"></i> Pay Now & Fire `Charged` Event
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- LOGIN / REGISTER MODAL -->
+  <div class="modal-backdrop" id="login-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 700; color: #fff;">Streamer Sign In</h2>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="input-name">Full Name</label>
+          <input type="text" id="input-name" class="form-control" value="Sarah Jenkins" required>
+        </div>
+        <div class="form-group">
+          <label for="input-email">Email Address</label>
+          <input type="email" id="input-email" class="form-control" value="sarah.j@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="input-phone">Phone Number</label>
+          <input type="tel" id="input-phone" class="form-control" value="+14155558921" required>
+        </div>
+        <div class="form-group">
+          <label for="input-identity">Unique Identity Key</label>
+          <input type="text" id="input-identity" class="form-control" value="USR_CT_9941" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+          <i class="fa-solid fa-right-to-bracket"></i> Login & Push Identity to CleverTap
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>CineStream OTT Platform © 2026 • Powered by <a href="https://clevertap.com" target="_blank">CleverTap Web SDK</a></p>
+    </div>
+  </footer>
+
+  <script src="js/clevertap-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

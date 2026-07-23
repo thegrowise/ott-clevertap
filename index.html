@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineStream OTT - Home | CleverTap Web SDK</title>
+  <meta name="description" content="Stream original blockbusters and live TV with seamless CleverTap web analytics integration.">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- NAVIGATION HEADER -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-film"></i>
+        <span>CineStream</span>
+        <span class="badge-ct">CleverTap</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="browse.html"><i class="fa-solid fa-compass"></i> Browse</a></li>
+        <li><a href="watch.html"><i class="fa-solid fa-circle-play"></i> Watch</a></li>
+        <li><a href="subscribe.html"><i class="fa-solid fa-crown"></i> Premium Tiers</a></li>
+        <li><a href="clevertap-push.html"><i class="fa-solid fa-terminal"></i> CT Push Console</a></li>
+      </ul>
+    </div>
+    
+    <div class="nav-right">
+      <div class="ct-status-pill" title="CleverTap Web SDK Active">
+        <span class="ct-status-dot"></span>
+        <span>ID: 867-88W-K87Z</span>
+      </div>
+      <div id="nav-auth-container">
+        <!-- Auth button populated dynamically by auth.js -->
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+    
+    <!-- HERO FEATURED BANNER -->
+    <section class="hero-banner" id="hero-banner">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <span class="hero-badge"><i class="fa-solid fa-fire"></i> Trending #1 Release</span>
+        <h1 class="hero-title" id="hero-title">Cyberpunk 2099: Cyber Odyssey</h1>
+        
+        <div class="hero-meta">
+          <span class="rating" id="hero-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+          <span id="hero-year">2026</span>
+          <span id="hero-duration">2h 24m</span>
+          <span class="badge-quality">4K ULTRA HD</span>
+          <span class="card-genre" id="hero-genre">Sci-Fi</span>
+        </div>
+        
+        <p class="hero-desc" id="hero-desc">
+          In a dystopian neo-metropolis governed by AI lords, a rogue hacker discovers an encrypted memory code that could spark human resistance.
+        </p>
+        
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="btn-hero-play">
+            <i class="fa-solid fa-play"></i> Play Now
+          </button>
+          <button class="btn btn-glass" id="btn-hero-watchlist">
+            <i class="fa-solid fa-plus"></i> Add to Watchlist
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRENDING SECTION -->
+    <section class="content-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title"><i class="fa-solid fa-bolt"></i> Trending Blockbusters</h2>
+          <p class="section-subtitle">Pushes `Movie Card Clicked` & `Media Details` to CleverTap</p>
+        </div>
+        <a href="browse.html" class="btn btn-outline"><i class="fa-solid fa-grid-2"></i> View All Catalog</a>
+      </div>
+
+      <div class="movie-grid" id="trending-grid">
+        <!-- Populated dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- CLEVERTAP INTEGRATION BANNER -->
+    <section style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 2.5rem; margin-top: 2rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem;">
+      <div>
+        <h3 style="font-size: 1.3rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+          <i class="fa-solid fa-shield-halved" style="color: var(--accent-purple); margin-right: 8px;"></i>
+          CleverTap Web Analytics Integration Active
+        </h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 700px;">
+          This 5-page sample OTT web app automatically sends real-time user activity, login identity (`onUserLogin`), page view metrics, and video player telemetry directly to CleverTap Project ID <code>867-88W-K87Z</code>.
+        </p>
+      </div>
+      <a href="clevertap-push.html" class="btn btn-purple" style="white-space: nowrap;">
+        <i class="fa-solid fa-paper-plane"></i> Launch CT Push Debugger
+      </a>
+    </section>
+
+  </main>
+
+  <!-- LOGIN / REGISTER MODAL -->
+  <div class="modal-backdrop" id="login-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <div style="width: 50px; height: 50px; background: rgba(229, 9, 20, 0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; color: var(--primary); font-size: 1.4rem;">
+          <i class="fa-solid fa-user-astronaut"></i>
+        </div>
+        <h2 style="font-size: 1.4rem; font-weight: 700; color: #fff;">Streamer Sign In</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Syncs user identity via <code>clevertap.onUserLogin.push()</code></p>
+      </div>
+
+      <form id="login-form">
+        <div class="form-group">
+          <label for="input-name">Full Name</label>
+          <input type="text" id="input-name" class="form-control" value="Sarah Jenkins" required>
+        </div>
+        <div class="form-group">
+          <label for="input-email">Email Address</label>
+          <input type="email" id="input-email" class="form-control" value="sarah.j@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="input-phone">Phone Number</label>
+          <input type="tel" id="input-phone" class="form-control" value="+14155558921" required>
+        </div>
+        <div class="form-group">
+          <label for="input-identity">Unique Identity Key</label>
+          <input type="text" id="input-identity" class="form-control" value="USR_CT_9941" required>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="input-genre">Preferred Genre</label>
+            <select id="input-genre" class="form-control">
+              <option value="Sci-Fi" selected>Sci-Fi</option>
+              <option value="Action">Action</option>
+              <option value="Thriller">Thriller</option>
+              <option value="Fantasy">Fantasy</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="input-plan">Subscription</label>
+            <select id="input-plan" class="form-control">
+              <option value="Standard 4K" selected>Standard 4K</option>
+              <option value="Premium Ultra">Premium Ultra</option>
+              <option value="Basic HD">Basic HD</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+          <i class="fa-solid fa-right-to-bracket"></i> Login & Push Identity to CleverTap
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p>CineStream OTT Platform © 2026 • Powered by <a href="https://clevertap.com" target="_blank">CleverTap Web SDK</a></p>
+      <p style="font-size: 0.75rem; margin-top: 0.4rem; color: var(--text-dim);">Project ID: 867-88W-K87Z | Region: global</p>
+    </div>
+  </footer>
+
+  <!-- CLEVERTAP SDK & SCRIPTS -->
+  <script src="js/clevertap-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

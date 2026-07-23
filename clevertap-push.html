@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineStream OTT - CleverTap Data Push Debugger Console</title>
+  <meta name="description" content="Dedicated CleverTap Data Push Dashboard to send custom events, profile attributes, and track live SDK payloads.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- NAVIGATION HEADER -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-film"></i>
+        <span>CineStream</span>
+        <span class="badge-ct">CleverTap</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="browse.html"><i class="fa-solid fa-compass"></i> Browse</a></li>
+        <li><a href="watch.html"><i class="fa-solid fa-circle-play"></i> Watch</a></li>
+        <li><a href="subscribe.html"><i class="fa-solid fa-crown"></i> Premium Tiers</a></li>
+        <li><a href="clevertap-push.html" class="active"><i class="fa-solid fa-terminal"></i> CT Push Console</a></li>
+      </ul>
+    </div>
+    
+    <div class="nav-right">
+      <div class="ct-status-pill">
+        <span class="ct-status-dot"></span>
+        <span>ID: 867-88W-K87Z</span>
+      </div>
+      <div id="nav-auth-container"></div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+    
+    <!-- CREDENTIALS HEADER CARD -->
+    <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 1.8rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <h1 style="font-size: 1.6rem; font-weight: 800; color: #fff; margin-bottom: 0.3rem;">
+          <i class="fa-solid fa-paper-plane" style="color: var(--accent-purple); margin-right: 8px;"></i>
+          CleverTap Live Data Push Dashboard
+        </h1>
+        <p style="color: var(--text-muted); font-size: 0.88rem;">
+          Directly push custom events, user profiles, identity logins, and e-commerce telemetry to your CleverTap project.
+        </p>
+      </div>
+
+      <div style="display: flex; gap: 1.5rem; background: rgba(9, 11, 16, 0.8); padding: 0.8rem 1.4rem; border-radius: var(--radius-md); border: 1px solid var(--border-glass); font-family: var(--font-code); font-size: 0.8rem;">
+        <div><span style="color: var(--text-dim);">Project ID:</span> <strong style="color: var(--accent-cyan);">867-88W-K87Z</strong></div>
+        <div><span style="color: var(--text-dim);">Token:</span> <strong style="color: #fff;">0bb-a6b</strong></div>
+        <div><span style="color: var(--text-dim);">Passcode:</span> <strong style="color: var(--accent-gold);">SMQ-KQE-GIEL</strong></div>
+        <div><span style="color: var(--text-dim);">Region:</span> <strong style="color: var(--accent-green);">global</strong></div>
+      </div>
+    </div>
+
+    <!-- PRESET QUICK ACTIONS -->
+    <section style="margin-bottom: 2rem;">
+      <h3 style="font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.8rem;">
+        <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--accent-gold); margin-right: 6px;"></i> Preset Quick Actions
+      </h3>
+      <div class="preset-grid">
+        <button class="btn-preset" onclick="CT.loginUser({ Identity: 'USER_CT_771', Name: 'John Connor', Email: 'john.c@example.com', Phone: '+14155557788', 'Preferred Genre': 'Sci-Fi' });">
+          <i class="fa-solid fa-user-check"></i>
+          <span>Push Login (onUserLogin)</span>
+        </button>
+
+        <button class="btn-preset" onclick="CT.pushProfile({ 'Customer Type': 'VIP Streamer', 'Favorite Movie': 'Cyberpunk 2099', 'Age': 29 });">
+          <i class="fa-solid fa-id-card"></i>
+          <span>Push Profile Update</span>
+        </button>
+
+        <button class="btn-preset" onclick="CT.trackCharged({ 'Amount': 49.99, 'Charged ID': 'ORD_9941', 'Payment Mode': 'Credit Card' }, [{ 'Item ID': 'ANNUAL_VIP', 'Price': 49.99 }]);">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <span>Push Charged Event</span>
+        </button>
+
+        <button class="btn-preset" onclick="clevertap.getLocation(37.7749, -122.4194); CT.showToast('LOCATION PUSHED', 'San Francisco (37.77, -122.41)', {});">
+          <i class="fa-solid fa-location-dot"></i>
+          <span>Push Location Data</span>
+        </button>
+
+        <button class="btn-preset" onclick="clevertap.notifications.push({ titleText: 'Enable Notifications?', bodyText: 'Get instant alerts for new blockbusters.', okButtonText: 'Allow', rejectButtonText: 'Cancel' }); CT.showToast('NOTIFICATION PROMPT', 'Triggered Web Push Prompt', {});">
+          <i class="fa-solid fa-bell"></i>
+          <span>Prompt Web Push</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- CONSOLE DUAL GRID -->
+    <div class="console-grid">
+      
+      <!-- LEFT: CUSTOM DATA PUSH FORMS -->
+      <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        
+        <!-- FORM 1: PUSH CUSTOM EVENT -->
+        <div class="console-card">
+          <h3 class="console-title">
+            <i class="fa-solid fa-bolt"></i> Push Custom Event (clevertap.event.push)
+          </h3>
+          <form id="console-event-form">
+            <div class="form-group">
+              <label for="console-event-name">Event Name</label>
+              <input type="text" id="console-event-name" class="form-control" value="Trailer Played" placeholder="e.g. Trailer Watched, Search Performed" required>
+            </div>
+            <div class="form-group">
+              <label for="console-event-props">Event Properties (JSON Format)</label>
+              <textarea id="console-event-props" class="code-editor-area" placeholder="{ ... }">{
+  "Trailer Name": "Cyberpunk 2099 Teaser",
+  "Duration Seconds": 120,
+  "Video Quality": "1080p",
+  "AutoPlayed": true
+}</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i class="fa-solid fa-paper-plane"></i> Dispatch Custom Event to CleverTap
+            </button>
+          </form>
+        </div>
+
+        <!-- FORM 2: PUSH USER PROFILE ATTRIBUTES -->
+        <div class="console-card">
+          <h3 class="console-title" style="border-color: rgba(6, 182, 212, 0.3);">
+            <i class="fa-solid fa-user-gear" style="color: var(--accent-cyan);"></i> Push User Profile Attributes (clevertap.profile.push)
+          </h3>
+          <form id="console-profile-form">
+            <div class="form-group">
+              <label for="console-profile-props">Profile Attributes (JSON Format)</label>
+              <textarea id="console-profile-props" class="code-editor-area" style="color: #60a5fa;" placeholder="{ ... }">{
+  "Subscription Tier": "Premium Ultra",
+  "Language": "English",
+  "Autoplay Next Episode": true,
+  "Favorite Category": "Sci-Fi"
+}</textarea>
+            </div>
+            <button type="submit" class="btn btn-purple" style="width: 100%;">
+              <i class="fa-solid fa-floppy-disk"></i> Update Profile Attributes
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: REALTIME TERMINAL LOG STREAM -->
+      <div class="console-card">
+        <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 0.8rem; border-bottom: 1px solid var(--border-glass);">
+          <h3 class="console-title" style="padding-bottom: 0; border: none;">
+            <i class="fa-solid fa-terminal" style="color: var(--accent-green);"></i> Real-Time Payload Log Stream
+          </h3>
+          <button class="btn btn-outline" id="btn-clear-logs" style="padding: 0.3rem 0.8rem; font-size: 0.75rem;">
+            <i class="fa-solid fa-trash"></i> Clear Logs
+          </button>
+        </div>
+
+        <div class="terminal-log" id="terminal-log-container">
+          <!-- Populated dynamically by app.js -->
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- LOGIN / REGISTER MODAL -->
+  <div class="modal-backdrop" id="login-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 700; color: #fff;">Streamer Sign In</h2>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="input-name">Full Name</label>
+          <input type="text" id="input-name" class="form-control" value="Sarah Jenkins" required>
+        </div>
+        <div class="form-group">
+          <label for="input-email">Email Address</label>
+          <input type="email" id="input-email" class="form-control" value="sarah.j@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="input-phone">Phone Number</label>
+          <input type="tel" id="input-phone" class="form-control" value="+14155558921" required>
+        </div>
+        <div class="form-group">
+          <label for="input-identity">Unique Identity Key</label>
+          <input type="text" id="input-identity" class="form-control" value="USR_CT_9941" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+          <i class="fa-solid fa-right-to-bracket"></i> Login & Push Identity to CleverTap
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>CineStream OTT Platform © 2026 • Powered by <a href="https://clevertap.com" target="_blank">CleverTap Web SDK</a></p>
+    </div>
+  </footer>
+
+  <script src="js/clevertap-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

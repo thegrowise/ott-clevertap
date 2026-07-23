@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineStream OTT - Browse & Search Catalog | CleverTap Web SDK</title>
+  <meta name="description" content="Explore and search our full 4K movies and TV series catalog with real-time CleverTap analytics.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- NAVIGATION HEADER -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-film"></i>
+        <span>CineStream</span>
+        <span class="badge-ct">CleverTap</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="browse.html" class="active"><i class="fa-solid fa-compass"></i> Browse</a></li>
+        <li><a href="watch.html"><i class="fa-solid fa-circle-play"></i> Watch</a></li>
+        <li><a href="subscribe.html"><i class="fa-solid fa-crown"></i> Premium Tiers</a></li>
+        <li><a href="clevertap-push.html"><i class="fa-solid fa-terminal"></i> CT Push Console</a></li>
+      </ul>
+    </div>
+    
+    <div class="nav-right">
+      <div class="ct-status-pill">
+        <span class="ct-status-dot"></span>
+        <span>ID: 867-88W-K87Z</span>
+      </div>
+      <div id="nav-auth-container"></div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+    
+    <!-- SEARCH & FILTER HEADER -->
+    <section class="search-section">
+      <div>
+        <h1 style="font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 0.4rem;">
+          <i class="fa-solid fa-magnifying-glass" style="color: var(--primary); margin-right: 8px;"></i>
+          Explore Movies & Series Catalog
+        </h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Filter by genre or search titles. Every search query triggers <code>clevertap.event.push("Catalog Searched")</code>.
+        </p>
+      </div>
+
+      <div class="search-bar-wrapper">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="search-input" class="search-input" placeholder="Search movies, series, directors, or genres (e.g. Cyberpunk, Sci-Fi)...">
+      </div>
+
+      <div class="genre-chips">
+        <button class="chip active" data-genre="All">All Genres</button>
+        <button class="chip" data-genre="Sci-Fi"><i class="fa-solid fa-user-astronaut"></i> Sci-Fi</button>
+        <button class="chip" data-genre="Action"><i class="fa-solid fa-gun"></i> Action</button>
+        <button class="chip" data-genre="Thriller"><i class="fa-solid fa-skull"></i> Thriller</button>
+        <button class="chip" data-genre="Fantasy"><i class="fa-solid fa-wand-magic-sparkles"></i> Fantasy</button>
+      </div>
+    </section>
+
+    <!-- MOVIE GRID -->
+    <section>
+      <div class="section-header">
+        <h2 class="section-title"><i class="fa-solid fa-layer-group"></i> Catalog Results</h2>
+        <span class="section-subtitle">Clicking a card sends <code>Movie Card Clicked</code> to CleverTap</span>
+      </div>
+
+      <div class="movie-grid" id="browse-grid">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LOGIN / REGISTER MODAL -->
+  <div class="modal-backdrop" id="login-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 700; color: #fff;">Streamer Sign In</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Syncs user profile to CleverTap</p>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="input-name">Full Name</label>
+          <input type="text" id="input-name" class="form-control" value="Sarah Jenkins" required>
+        </div>
+        <div class="form-group">
+          <label for="input-email">Email Address</label>
+          <input type="email" id="input-email" class="form-control" value="sarah.j@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="input-phone">Phone Number</label>
+          <input type="tel" id="input-phone" class="form-control" value="+14155558921" required>
+        </div>
+        <div class="form-group">
+          <label for="input-identity">Unique Identity Key</label>
+          <input type="text" id="input-identity" class="form-control" value="USR_CT_9941" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+          <i class="fa-solid fa-right-to-bracket"></i> Login & Push Identity to CleverTap
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>CineStream OTT Platform © 2026 • Powered by <a href="https://clevertap.com" target="_blank">CleverTap Web SDK</a></p>
+    </div>
+  </footer>
+
+  <script src="js/clevertap-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

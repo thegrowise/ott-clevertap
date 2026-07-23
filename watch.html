@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineStream OTT - Watch & Video Telemetry | CleverTap Web SDK</title>
+  <meta name="description" content="Watch high definition movies and TV shows while sending real-time video telemetry events to CleverTap.">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- NAVIGATION HEADER -->
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="index.html" class="brand-logo">
+        <i class="fa-solid fa-film"></i>
+        <span>CineStream</span>
+        <span class="badge-ct">CleverTap</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
+        <li><a href="browse.html"><i class="fa-solid fa-compass"></i> Browse</a></li>
+        <li><a href="watch.html" class="active"><i class="fa-solid fa-circle-play"></i> Watch</a></li>
+        <li><a href="subscribe.html"><i class="fa-solid fa-crown"></i> Premium Tiers</a></li>
+        <li><a href="clevertap-push.html"><i class="fa-solid fa-terminal"></i> CT Push Console</a></li>
+      </ul>
+    </div>
+    
+    <div class="nav-right">
+      <div class="ct-status-pill">
+        <span class="ct-status-dot"></span>
+        <span>ID: 867-88W-K87Z</span>
+      </div>
+      <div id="nav-auth-container"></div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <main class="container">
+    
+    <!-- VIDEO PLAYER CONSOLE -->
+    <div class="player-wrapper">
+      <div class="video-container">
+        <!-- Interactive Simulated Video Display -->
+        <img id="player-backdrop" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1600&auto=format&fit=crop&q=80" class="simulated-video-canvas" alt="Video Player">
+        
+        <!-- Controls Overlay -->
+        <div class="video-overlay-controls visible">
+          <div class="player-header">
+            <div class="now-playing-title" id="watch-title">Cyberpunk 2099: Cyber Odyssey</div>
+            <span class="hero-badge" style="margin: 0;"><i class="fa-solid fa-satellite-dish"></i> Telemetry Live</span>
+          </div>
+
+          <div class="player-bottom-controls">
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+              <div class="progress-fill" id="player-progress-fill" style="width: 15%;">
+                <div class="progress-thumb"></div>
+              </div>
+            </div>
+
+            <div class="controls-row">
+              <div class="controls-left">
+                <button class="control-btn" id="btn-player-play" title="Play / Pause">
+                  <i class="fa-solid fa-play"></i>
+                </button>
+                <button class="control-btn" title="Rewind 10s"><i class="fa-solid fa-rotate-left"></i></button>
+                <button class="control-btn" title="Forward 10s"><i class="fa-solid fa-rotate-right"></i></button>
+                <span class="time-display" id="player-time-display">21m / 144m</span>
+              </div>
+
+              <div class="controls-right">
+                <span style="font-size: 0.75rem; color: var(--accent-gold); font-weight: 700;">4K ULTRA HD</span>
+                <button class="control-btn" title="Audio / Subtitles"><i class="fa-solid fa-closed-captioning"></i></button>
+                <button class="control-btn" title="Volume"><i class="fa-solid fa-volume-high"></i></button>
+                <button class="control-btn" title="Fullscreen"><i class="fa-solid fa-expand"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DETAILS & EPISODES GRID -->
+    <div class="watch-details-grid">
+      
+      <!-- MOVIE METADATA -->
+      <div style="background: var(--bg-card); border: 1px solid var(--border-glass); border-radius: var(--radius-lg); padding: 2rem;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem;">
+          <h2 style="font-size: 1.6rem; font-weight: 800; color: #fff;">Media Details & Analytics</h2>
+          <button class="btn btn-glass" id="btn-watch-add-list">
+            <i class="fa-solid fa-bookmark"></i> Save to Watchlist
+          </button>
+        </div>
+
+        <div class="hero-meta" style="margin-bottom: 1rem;">
+          <span class="rating"><i class="fa-solid fa-star" id="watch-rating"></i> 4.9</span>
+          <span id="watch-genre" class="card-genre">Sci-Fi</span>
+          <span class="badge-quality">Dolby Atmos</span>
+          <span>Released 2026</span>
+        </div>
+
+        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem;" id="watch-desc">
+          In a dystopian neo-metropolis governed by AI lords, a rogue hacker discovers an encrypted memory code that could spark human resistance.
+        </p>
+
+        <div style="background: rgba(9, 11, 16, 0.7); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 1.2rem;">
+          <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 0.5rem;">
+            <i class="fa-solid fa-chart-line"></i> Active CleverTap Video Events Tracked:
+          </h4>
+          <ul style="font-size: 0.8rem; color: var(--text-muted); padding-left: 1.2rem; display: flex; flex-direction: column; gap: 0.3rem;">
+            <li><code>Media Details Viewed</code> (on page load)</li>
+            <li><code>Media Play</code> & <code>Media Pause</code> (on playback toggles)</li>
+            <li><code>Media 25% Watched</code>, <code>50%</code>, <code>75%</code>, <code>Completed</code> (progress telemetry)</li>
+            <li><code>Watchlist Item Added</code> (on bookmark button)</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- EPISODE SELECTOR -->
+      <div class="episodes-list">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem;">
+          <i class="fa-solid fa-list-ul" style="color: var(--primary); margin-right: 6px;"></i> Next Episodes & Parts
+        </h3>
+
+        <div class="episode-item active">
+          <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=300&auto=format&fit=crop&q=80" class="episode-thumb" alt="Part 1">
+          <div class="episode-info">
+            <div class="episode-title">Part 1: The Encrypted Matrix</div>
+            <div class="episode-duration">Duration: 48 mins</div>
+          </div>
+        </div>
+
+        <div class="episode-item" onclick="CT.trackEvent('Episode Selected', { 'Episode': 'Part 2', 'Title': 'Quantum Resonance' }); alert('Episode 2 selected! Event pushed to CleverTap.');">
+          <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=300&auto=format&fit=crop&q=80" class="episode-thumb" alt="Part 2">
+          <div class="episode-info">
+            <div class="episode-title">Part 2: Quantum Resonance</div>
+            <div class="episode-duration">Duration: 52 mins</div>
+          </div>
+        </div>
+
+        <div class="episode-item" onclick="CT.trackEvent('Episode Selected', { 'Episode': 'Part 3', 'Title': 'Neon Revolt' }); alert('Episode 3 selected! Event pushed to CleverTap.');">
+          <img src="https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?w=300&auto=format&fit=crop&q=80" class="episode-thumb" alt="Part 3">
+          <div class="episode-info">
+            <div class="episode-title">Part 3: Neon Revolt</div>
+            <div class="episode-duration">Duration: 55 mins</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- LOGIN / REGISTER MODAL -->
+  <div class="modal-backdrop" id="login-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close-btn"><i class="fa-solid fa-xmark"></i></button>
+      <div style="text-align: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.4rem; font-weight: 700; color: #fff;">Streamer Sign In</h2>
+      </div>
+      <form id="login-form">
+        <div class="form-group">
+          <label for="input-name">Full Name</label>
+          <input type="text" id="input-name" class="form-control" value="Sarah Jenkins" required>
+        </div>
+        <div class="form-group">
+          <label for="input-email">Email Address</label>
+          <input type="email" id="input-email" class="form-control" value="sarah.j@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="input-phone">Phone Number</label>
+          <input type="tel" id="input-phone" class="form-control" value="+14155558921" required>
+        </div>
+        <div class="form-group">
+          <label for="input-identity">Unique Identity Key</label>
+          <input type="text" id="input-identity" class="form-control" value="USR_CT_9941" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+          <i class="fa-solid fa-right-to-bracket"></i> Login & Push Identity to CleverTap
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>CineStream OTT Platform © 2026 • Powered by <a href="https://clevertap.com" target="_blank">CleverTap Web SDK</a></p>
+    </div>
+  </footer>
+
+  <script src="js/clevertap-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
