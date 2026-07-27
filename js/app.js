@@ -103,7 +103,7 @@ window.App = {
       this.initWatchPage();
     } else if (path.endsWith('subscribe.html')) {
       this.initSubscribePage();
-    } else if (path.endsWith('clevertap-push.html')) {
+    } else if (path.endsWith('growise-push.html')) {
       this.initPushConsolePage();
     }
   },
@@ -127,21 +127,21 @@ window.App = {
       if (heroBanner) heroBanner.style.backgroundImage = `url('${heroMovie.banner}')`;
 
       document.getElementById('btn-hero-play').addEventListener('click', function () {
-        CT.trackEvent('Hero Banner Clicked', {
-          'Movie ID': heroMovie.id,
-          'Movie Title': heroMovie.title,
-          'Action': 'Play Now'
+        growise.track('hero_banner_clicked', {
+          'movie_id': heroMovie.id,
+          'movie_title': heroMovie.title,
+          'action_type': 'play_now'
         });
         window.location.href = `watch.html?id=${heroMovie.id}`;
       });
 
       document.getElementById('btn-hero-watchlist').addEventListener('click', function () {
-        CT.trackEvent('Watchlist Toggled', {
-          'Movie ID': heroMovie.id,
-          'Movie Title': heroMovie.title,
-          'Action': 'Added to Watchlist'
+        growise.track('watchlist_toggled', {
+          'movie_id': heroMovie.id,
+          'movie_title': heroMovie.title,
+          'action_type': 'added_to_watchlist'
         });
-        alert(`"${heroMovie.title}" added to your watchlist! Event sent to CleverTap.`);
+        alert(`"${heroMovie.title}" added to your watchlist! Event sent to Growise.`);
       });
     }
 
@@ -174,10 +174,10 @@ window.App = {
   openWatchPage: function (movieId) {
     var movie = this.movies.find(function (m) { return m.id === movieId; });
     if (movie) {
-      CT.trackEvent('Movie Card Clicked', {
-        'Movie ID': movie.id,
-        'Movie Title': movie.title,
-        'Genre': movie.genre
+      growise.track('movie_card_clicked', {
+        'movie_id': movie.id,
+        'movie_title': movie.title,
+        'movie_genre': movie.genre
       });
     }
     window.location.href = `watch.html?id=${movieId}`;
@@ -199,9 +199,9 @@ window.App = {
         App.renderBrowseCatalog(filtered);
 
         if (query.length > 2) {
-          CT.trackEvent('Catalog Searched', {
-            'Search Query': query,
-            'Results Count': filtered.length
+          growise.track('catalog_searched', {
+            'search_query': query,
+            'results_count': filtered.length
           });
         }
       });
@@ -217,9 +217,9 @@ window.App = {
         var filtered = (genre === 'All') ? App.movies : App.movies.filter(function (m) { return m.genre === genre; });
         App.renderBrowseCatalog(filtered);
 
-        CT.trackEvent('Filter Applied', {
-          'Filter Category': 'Genre',
-          'Selected Genre': genre
+        growise.track('filter_applied', {
+          'filter_category': 'genre',
+          'selected_genre': genre
         });
       });
     });
@@ -270,11 +270,11 @@ window.App = {
     document.getElementById('watch-rating').textContent = movie.rating;
 
     // Track Video Start event
-    CT.trackEvent('Media Details Viewed', {
-      'Media ID': movie.id,
-      'Media Title': movie.title,
-      'Genre': movie.genre,
-      'Quality': movie.quality
+    growise.track('media_details_viewed', {
+      'media_id': movie.id,
+      'media_title': movie.title,
+      'media_genre': movie.genre,
+      'media_quality': movie.quality
     });
 
     // Simulated Video Controls
@@ -291,10 +291,10 @@ window.App = {
         isPlaying = !isPlaying;
         if (isPlaying) {
           playBtn.innerHTML = '<i class="fa-solid fa-pause"></i>';
-          CT.trackEvent('Media Play', {
-            'Media ID': movie.id,
-            'Media Title': movie.title,
-            'Current Time Seconds': currentTimeSec
+          growise.track('media_play', {
+            'media_id': movie.id,
+            'media_title': movie.title,
+            'current_time_seconds': currentTimeSec
           });
           timerInterval = setInterval(function () {
             currentTimeSec += 60;
@@ -303,17 +303,17 @@ window.App = {
               isPlaying = false;
               playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
               clearInterval(timerInterval);
-              CT.trackEvent('Media Completed', { 'Media ID': movie.id, 'Media Title': movie.title });
+              growise.track('media_completed', { 'media_id': movie.id, 'media_title': movie.title });
             }
             App.updatePlayerProgress(currentTimeSec, totalTimeSec, progressFill, timeDisplay, movie);
           }, 1000);
         } else {
           playBtn.innerHTML = '<i class="fa-solid fa-play"></i>';
           clearInterval(timerInterval);
-          CT.trackEvent('Media Pause', {
-            'Media ID': movie.id,
-            'Media Title': movie.title,
-            'Pause Time Seconds': currentTimeSec
+          growise.track('media_pause', {
+            'media_id': movie.id,
+            'media_title': movie.title,
+            'pause_time_seconds': currentTimeSec
           });
         }
       });
@@ -323,9 +323,9 @@ window.App = {
     var btnWatchlist = document.getElementById('btn-watch-add-list');
     if (btnWatchlist) {
       btnWatchlist.addEventListener('click', function () {
-        CT.trackEvent('Watchlist Item Added', {
-          'Media ID': movie.id,
-          'Media Title': movie.title
+        growise.track('watchlist_item_added', {
+          'media_id': movie.id,
+          'media_title': movie.title
         });
         alert(`"${movie.title}" added to your watchlist!`);
       });
@@ -343,15 +343,15 @@ window.App = {
     // Track Milestone Telemetry
     if (pct >= 25 && !this.milestonesTracked.m25) {
       this.milestonesTracked.m25 = true;
-      CT.trackEvent('Media 25% Watched', { 'Media ID': movie.id, 'Media Title': movie.title });
+      growise.track('media_25_watched', { 'media_id': movie.id, 'media_title': movie.title });
     }
     if (pct >= 50 && !this.milestonesTracked.m50) {
       this.milestonesTracked.m50 = true;
-      CT.trackEvent('Media 50% Watched', { 'Media ID': movie.id, 'Media Title': movie.title });
+      growise.track('media_50_watched', { 'media_id': movie.id, 'media_title': movie.title });
     }
     if (pct >= 75 && !this.milestonesTracked.m75) {
       this.milestonesTracked.m75 = true;
-      CT.trackEvent('Media 75% Watched', { 'Media ID': movie.id, 'Media Title': movie.title });
+      growise.track('media_75_watched', { 'media_id': movie.id, 'media_title': movie.title });
     }
   },
 
@@ -376,33 +376,33 @@ window.App = {
         var amount = parseFloat(document.getElementById('checkout-plan-price').textContent);
 
         var chargeDetails = {
-          "Amount": amount,
-          "Charged ID": "ORD_" + Math.floor(100000 + Math.random() * 900000),
-          "Payment Mode": "Credit Card",
-          "Subscription Plan": planName,
-          "Currency": "USD"
+          "amount": amount,
+          "charged_id": "ORD_" + Math.floor(100000 + Math.random() * 900000),
+          "payment_mode": "credit_card",
+          "subscription_plan": planName,
+          "currency": "usd"
         };
 
         var items = [{
-          "Item ID": "SUB_" + planName.toUpperCase(),
-          "Item Name": planName + " Streaming Subscription",
-          "Category": "OTT Subscription",
-          "Price": amount,
-          "Quantity": 1
+          "item_id": "sub_" + planName.toLowerCase(),
+          "item_name": planName + " streaming subscription",
+          "category": "ott_subscription",
+          "price": amount,
+          "quantity": 1
         }];
 
-        // PUSH CHARGED EVENT TO CLEVERTAP
-        CT.trackCharged(chargeDetails, items);
+        // PUSH CHARGED EVENT TO GROWISE
+        growise.track('charged', Object.assign({}, chargeDetails, { items: items }));
 
         // PUSH PROFILE UPDATE
-        CT.pushProfile({
-          "Subscription Status": "Active",
-          "Current Plan": planName,
-          "Plan Expiry Date": new Date(Date.now() + 30*24*60*60*1000).toISOString()
+        growise.profilePush({
+          "subscription_status": "active",
+          "current_plan": planName,
+          "plan_expiry_date": new Date(Date.now() + 30*24*60*60*1000).toISOString()
         });
 
         App.closeCheckoutModal();
-        alert(`🎉 Subscription successful for ${planName}! CleverTap Charged event sent.`);
+        alert(`🎉 Subscription successful for ${planName}! Growise Charged event sent.`);
       });
     }
   },
@@ -413,9 +413,9 @@ window.App = {
     var modal = document.getElementById('checkout-modal');
     if (modal) modal.classList.add('active');
 
-    CT.trackEvent('Subscription Plan Selected', {
-      'Plan Name': plan,
-      'Price': price
+    growise.track('subscription_plan_selected', {
+      'plan_name': plan,
+      'price': price
     });
   },
 
@@ -425,7 +425,7 @@ window.App = {
   },
 
   // ==========================================
-  // 5. CLEVERTAP DEBUG CONSOLE LOGIC
+  // 5. GROWISE DEBUG CONSOLE LOGIC
   // ==========================================
   initPushConsolePage: function () {
     this.renderConsoleLogs();
@@ -444,7 +444,7 @@ window.App = {
         
         try {
           var props = propsText ? JSON.parse(propsText) : {};
-          CT.trackEvent(name, props);
+          growise.track(name, props);
         } catch (err) {
           alert('Invalid JSON in event properties format.');
         }
@@ -459,7 +459,7 @@ window.App = {
         var profileText = document.getElementById('console-profile-props').value.trim();
         try {
           var props = JSON.parse(profileText);
-          CT.pushProfile(props);
+          growise.profilePush(props);
         } catch (err) {
           alert('Invalid JSON in profile attributes format.');
         }
@@ -482,7 +482,7 @@ window.App = {
 
     var logs = JSON.parse(localStorage.getItem('ct_event_history') || '[]');
     if (logs.length === 0) {
-      container.innerHTML = `<div style="color:var(--text-dim);padding:1rem;">No events pushed yet. Interact with the website or use the forms on the left to push data to CleverTap.</div>`;
+      container.innerHTML = `<div style="color:var(--text-dim);padding:1rem;">No events pushed yet. Interact with the website or use the forms on the left to push data to Growise.</div>`;
       return;
     }
 

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CINESTREAM AUTHENTICATION & CLEVERTAP IDENTITY MANAGER
+   CINESTREAM AUTHENTICATION & GROWISE IDENTITY MANAGER
    ========================================================================== */
 
 window.Auth = {
@@ -96,11 +96,11 @@ window.Auth = {
     this.currentUser = userData;
     localStorage.setItem('cinestream_user', JSON.stringify(userData));
 
-    // PUSH TO CLEVERTAP VIA onUserLogin
-    CT.loginUser(userData);
+    // PUSH TO GROWISE VIA onUserLogin
+    growise.onUserLogin({ Site: userData });
 
     // Also push custom profile attributes
-    CT.pushProfile({
+    growise.profilePush({
       "Last Login Date": new Date().toISOString(),
       "User Type": "Registered Streamer"
     });
@@ -114,12 +114,12 @@ window.Auth = {
 
   // Handle Logout
   logout: function () {
-    if (window.CT && typeof window.CT.logoutUser === 'function') {
-      CT.logoutUser(this.currentUser);
+    if (window.growise && typeof window.growise.logout === 'function') {
+      growise.logout();
     } else if (this.currentUser) {
-      CT.trackEvent('User Logged Out', {
-        'User Email': this.currentUser.Email,
-        'Identity': this.currentUser.Identity
+      growise.track('user_logged_out', {
+        'user_email': this.currentUser.Email,
+        'identity': this.currentUser.Identity
       });
     }
 

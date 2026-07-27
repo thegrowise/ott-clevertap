@@ -1,5 +1,5 @@
 /* ==========================================================================
-   CINESTREAM SHOP & ACTION BUTTONS CLEVERTAP DEMO JS
+   CINESTREAM SHOP & ACTION BUTTONS GROWISE DEMO JS
    ========================================================================== */
 
 (function () {
@@ -60,12 +60,12 @@
   // Automatically Track Page Visit on Load
   function setupPageVisitTracker() {
     // Push automatic page visit
-    if (window.CT && window.CT.trackEvent) {
-      window.CT.trackEvent('Page Visited', {
-        'Page Name': 'CleverTap Action Buttons & Store Page',
-        'Page Type': 'E-Commerce & Action Console',
-        'Referrer': document.referrer || 'Direct Entry',
-        'URL Path': window.location.pathname
+    if (window.growise && window.growise.track) {
+      window.growise.track('page_visited', {
+        'page_name': 'Growise Action Buttons & Store Page',
+        'page_type': 'E-Commerce & Action Console',
+        'referrer': document.referrer || 'Direct Entry',
+        'url_path': window.location.pathname
       });
     }
 
@@ -76,30 +76,30 @@
 
     if (btnVisitShop) {
       btnVisitShop.addEventListener('click', function () {
-        CT.trackEvent('Page Visited', {
-          'Section Name': 'Shop Main Catalog',
-          'Visit Trigger': 'Manual Button Click',
-          'Active Category': 'All Products'
+        growise.track('page_visited', {
+          'section_name': 'Shop Main Catalog',
+          'visit_trigger': 'Manual Button Click',
+          'active_category': 'All Products'
         });
       });
     }
 
     if (btnVisitDeals) {
       btnVisitDeals.addEventListener('click', function () {
-        CT.trackEvent('Page Visited', {
-          'Section Name': 'Flash Deals & Discounts',
-          'Visit Trigger': 'Manual Button Click',
-          'Discount Tier': '25% Off Cyber Pass'
+        growise.track('page_visited', {
+          'section_name': 'Flash Deals & Discounts',
+          'visit_trigger': 'Manual Button Click',
+          'discount_tier': '25% Off Cyber Pass'
         });
       });
     }
 
     if (btnVisitTech) {
       btnVisitTech.addEventListener('click', function () {
-        CT.trackEvent('Page Visited', {
-          'Section Name': 'VR & Hardware Gear',
-          'Visit Trigger': 'Manual Button Click',
-          'Category Filter': 'Hardware'
+        growise.track('page_visited', {
+          'section_name': 'VR & Hardware Gear',
+          'visit_trigger': 'Manual Button Click',
+          'category_filter': 'Hardware'
         });
       });
     }
@@ -156,11 +156,11 @@
         var id = this.getAttribute('data-id');
         var product = getProductById(id);
         if (product) {
-          CT.trackEvent('Product Viewed', {
-            'Product ID': product.id,
-            'Product Name': product.name,
-            'Category': product.category,
-            'Price': product.price
+          growise.track('product_viewed', {
+            'product_id': product.id,
+            'product_name': product.name,
+            'category': product.category,
+            'price': product.price
           });
         }
       });
@@ -171,11 +171,11 @@
         var id = this.getAttribute('data-id');
         var product = getProductById(id);
         if (product) {
-          CT.trackEvent('Added to Wishlist', {
-            'Product ID': product.id,
-            'Product Name': product.name,
-            'Category': product.category,
-            'Price': product.price
+          growise.track('added_to_wishlist', {
+            'product_id': product.id,
+            'product_name': product.name,
+            'category': product.category,
+            'price': product.price
           });
         }
       });
@@ -189,7 +189,7 @@
     return null;
   }
 
-  // Add Item to Cart & Push CleverTap Event
+  // Add Item to Cart & Push Growise Event
   function addToCart(productId) {
     var product = getProductById(productId);
     if (!product) return;
@@ -217,14 +217,14 @@
     saveCartToStorage();
     renderCart();
 
-    // PUSH CLEVERTAP "Added to Cart" EVENT
-    CT.trackEvent('Added to Cart', {
-      'Product ID': product.id,
-      'Product Name': product.name,
-      'Category': product.category,
-      'Price': product.price,
-      'Cart Total Items': getCartTotalCount(),
-      'Source': 'Shop Page Action Button'
+    // PUSH GROWISE "Added to Cart" EVENT
+    growise.track('added_to_cart', {
+      'product_id': product.id,
+      'product_name': product.name,
+      'category': product.category,
+      'price': product.price,
+      'cart_total_items': getCartTotalCount(),
+      'source': 'Shop Page Action Button'
     });
   }
 
@@ -260,7 +260,7 @@
         <div class="cart-empty-state">
           <i class="fa-solid fa-basket-shopping" style="font-size: 2.5rem; color: var(--text-dim); margin-bottom: 0.5rem;"></i>
           <p>Your shopping cart is currently empty.</p>
-          <span style="font-size: 0.8rem; color: var(--text-dim);">Click <strong>Add to Cart</strong> buttons above to trigger CleverTap E-commerce events.</span>
+          <span style="font-size: 0.8rem; color: var(--text-dim);">Click <strong>Add to Cart</strong> buttons above to trigger Growise E-commerce events.</span>
         </div>
       `;
       if (btnCheckout) btnCheckout.disabled = true;
@@ -300,9 +300,9 @@
       btnClear.dataset.bound = "true";
       btnClear.addEventListener('click', function () {
         if (cartItems.length > 0) {
-          CT.trackEvent('Cart Cleared', {
-            'Items Removed Count': totalCount,
-            'Total Cart Value Abandoned': totalPrice
+          growise.track('cart_cleared', {
+            'items_removed_count': totalCount,
+            'total_cart_value_abandoned': totalPrice
           });
           cartItems = [];
           saveCartToStorage();
@@ -331,11 +331,11 @@
     renderCart();
 
     if (removedItem) {
-      CT.trackEvent('Removed from Cart', {
-        'Product ID': removedItem.id,
-        'Product Name': removedItem.name,
-        'Category': removedItem.category,
-        'Price': removedItem.price
+      growise.track('removed_from_cart', {
+        'product_id': removedItem.id,
+        'product_name': removedItem.name,
+        'category': removedItem.category,
+        'price': removedItem.price
       });
     }
   }
@@ -362,8 +362,8 @@
       };
     });
 
-    // PUSH CLEVERTAP CHARGED EVENT
-    CT.trackCharged(chargeDetails, itemsPayload);
+    // PUSH GROWISE CHARGED EVENT
+    growise.track('charged', Object.assign({}, chargeDetails, { items: itemsPayload }));
 
     // Reset Cart
     cartItems = [];
@@ -444,8 +444,8 @@
           Auth.renderHeaderAuthUI();
         }
 
-        // PUSH ON USER LOGIN TO CLEVERTAP
-        CT.loginUser(userData);
+        // PUSH ON USER LOGIN TO GROWISE
+        growise.onUserLogin({ Site: userData });
       });
     }
 
@@ -461,8 +461,8 @@
           "Last Action Performed": "Clicked Push Profile Button"
         };
 
-        // PUSH PROFILE ATTRIBUTES TO CLEVERTAP
-        CT.pushProfile(profileData);
+        // PUSH PROFILE ATTRIBUTES TO GROWISE
+        growise.profilePush(profileData);
       });
     }
   }
