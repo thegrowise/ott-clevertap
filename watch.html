@@ -209,12 +209,14 @@
     </div>
   </footer>
 
-  <script src="https://cdn.thegrowise.com/growise.js"></script>
+  <script src="https://cdn.thegrowise.com/web-v2/dist/growise.umd.js"></script>
   <script>
-    growise.init("gk_fb1f74f36d7306637c0cbd76d30b267f", {
-      endpoint: 'https://events.stag.thegrowise.com/track',
-      gateway: 'https://api.stag.thegrowise.com'
-    });
+    growise.init("gk_362c171892d479b242210c098e6c42f3", {
+            env: 'stag',
+            eventsBase: 'https://events.stag.thegrowise.com',
+            endpoint: 'https://events.stag.thegrowise.com/track',
+            gateway: 'https://api.stag.thegrowise.com'
+        });
   </script>
   <script src="js/ui-helpers.js"></script>
   <script src="js/auth.js"></script>
