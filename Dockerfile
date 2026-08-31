@@ -1,11 +1,20 @@
 # Base image: Lightweight Nginx Alpine
 FROM nginx:alpine
 
-# Copy all static website files to Nginx default html folder
-COPY . /usr/share/nginx/html
+# Set working directory
+WORKDIR /usr/share/nginx/html
 
-# Expose port 80
+# Remove default static assets
+RUN rm -rf ./*
+
+# Copy custom Nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Copy all application static files
+COPY . .
+
+# Expose port 80 for Nginx web server
 EXPOSE 80
 
-# Start Nginx
+# Run Nginx in foreground
 CMD ["nginx", "-g", "daemon off;"]

@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  ott-clevertap:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ott-clevertap-web
+    ports:
+      - "8080:80"
+    restart: always
